@@ -1,5 +1,9 @@
-console.log(multiply(3,5));
-console.log(divide(5,3));
+let num1 = 5;
+let num2 = 3;
+let operator = add;
+let result = operate(operator, num1, num2);
+
+console.log(result);
 
 //FUNCTIONS
 
@@ -17,6 +21,10 @@ function multiply(num1, num2) {
 
 function divide(num1, num2) {
     return num1/num2
+};
+
+function operate(operator, num1, num2) {
+    return operator(num1, num2);
 };
 
 /*
