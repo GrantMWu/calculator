@@ -1,9 +1,10 @@
-let num1 = 5;
-let num2 = 3;
-let operator = add;
-let result = operate(operator, num1, num2);
+let buttons = document.querySelectorAll('button');
 
-console.log(result);
+buttons.forEach(button => {
+    button.addEventListener('click', () => {display(button.value)})
+})
+
+
 
 //FUNCTIONS
 
@@ -26,6 +27,12 @@ function divide(num1, num2) {
 function operate(operator, num1, num2) {
     return operator(num1, num2);
 };
+
+function display(string) {
+    document.getElementById('display').innerHTML += string;
+}
+
+//function store(number)
 
 /*
 function sum(array) {
