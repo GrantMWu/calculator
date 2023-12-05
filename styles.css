@@ -1,3 +1,8 @@
+/*#calculator-container {
+    display: flex;
+    flex-direction: column;
+}
+*/
 #calc-display {
-    display: inline-block;
+    display: inline-block
 }

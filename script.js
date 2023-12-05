@@ -1,8 +1,10 @@
 let buttons = document.querySelectorAll('button');
-let numbers = document.querySelectorAll('.num');
-let operators = document.querySelectorAll('.operator');
+let numberBtns = document.querySelectorAll('.num');
+let operatorBtns = document.querySelectorAll('.operator');
+let equalBtn = document.getElementById('equal');
 let numDisplay = document.getElementById('num-display');
 let calcDisplay = document.getElementById('calc-display');
+
 
 let storage;
 let num1;
@@ -10,17 +12,21 @@ let num2;
 let operator;
 let newNumber = true;
 
-numbers.forEach(button => {
+numberBtns.forEach(button => {
     button.addEventListener('click', () => {
         handleNum(button);
     });
 });
 
 
-operators.forEach(button => {
+operatorBtns.forEach(button => {
     button.addEventListener('click', () => {
         handleOperator(button);
     });
+});
+
+equalBtn.addEventListener('click', () => {
+    handleEqual()
 });
 
 
@@ -82,8 +88,15 @@ function handleOperator(element) {
     newNumber = true;
 }
 
-function readyForEval() {
-    if (num2) {
-        return true;
+function handleEqual() {
+    console.log(newNumber);
+    if(!newNumber) {
+        num2 = +storage
+        changeDisplay(calcDisplay, calcDisplay.innerHTML + num2 + ' = ');
+        num1 = operate(operator, num1, num2);
+        num2 = ''
+        changeDisplay(numDisplay, num1)
     }
+
+    return;
 }
