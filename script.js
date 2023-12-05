@@ -1,16 +1,19 @@
-let buttons = document.querySelectorAll('button');
-let numberBtns = document.querySelectorAll('.num');
-let operatorBtns = document.querySelectorAll('.operator');
-let equalBtn = document.getElementById('equal');
-let numDisplay = document.getElementById('num-display');
-let calcDisplay = document.getElementById('calc-display');
-
+const buttons = document.querySelectorAll('button'); 
+const numberBtns = document.querySelectorAll('.num');
+const operatorBtns = document.querySelectorAll('.operator');
+const equalBtn = document.getElementById('equal');
+const clearBtn = document.getElementById('cler')
+const allClearBtn = document.getElementById('allClear')
+const deleteBtn = document.getElementById('delete')
+const numDisplay = document.getElementById('num-display');
+const calcDisplay = document.getElementById('calc-display');
 
 let storage;
 let num1;
 let num2;
 let operator;
 let newNumber = true;
+let evaluated = false;
 
 numberBtns.forEach(button => {
     button.addEventListener('click', () => {
@@ -28,6 +31,22 @@ operatorBtns.forEach(button => {
 equalBtn.addEventListener('click', () => {
     handleEqual()
 });
+
+/*
+clearBtn.addEventListener('click', () => {
+    clearNumDisplay();
+});
+
+allClearBtn.addEventListener('click', () => {
+    clearNumDisplay();
+    clearCalcDisplay();
+});
+
+deleteBtn.addEventListener('click', () => {
+    delNumDisplay();
+})
+*/
+
 
 
 //FUNCTIONS
@@ -55,13 +74,14 @@ function operate(operator, num1, num2) {
 
 //Other functions
 function changeDisplay(element, string) {
-    element.innerHTML = string;
+    element.textContent = string;
 }
 
 function handleNum(element) {
-    if (newNumber) {
+    if (newNumber || evaluated) {
         storage = '';
         newNumber = false;
+        evaluated = false;
     }
 
     storage += element.value;
@@ -70,33 +90,30 @@ function handleNum(element) {
 
 function handleOperator(element) {
     if(!newNumber) {
-        if (!num1){
-            num1 = +storage;
-            console.log(num1);
-            operator = window[element.id];
-        } else {
+        if (num1 && !num2) {
             num2 = +storage
-            console.log(num1, num2, operator);
-            num1 = operate(operator, num1, num2);
+            storage = operate(operator, num1, num2);
             num2 = '';
         }
+
+         num1 = +storage;
+         operator = window[element.id];
     }
     
-    
-    changeDisplay(calcDisplay, `${num1} ${element.value}`);
-    changeDisplay(numDisplay, num1)
+    changeDisplay(calcDisplay, `${storage} ${element.value} `);
+    changeDisplay(numDisplay, storage)
     newNumber = true;
 }
 
 function handleEqual() {
-    console.log(newNumber);
-    if(!newNumber) {
+    if (num1 && !newNumber) {
         num2 = +storage
         changeDisplay(calcDisplay, calcDisplay.innerHTML + num2 + ' = ');
-        num1 = operate(operator, num1, num2);
-        num2 = ''
-        changeDisplay(numDisplay, num1)
+        storage = operate(operator, num1, num2);
+        changeDisplay(numDisplay, storage)
+        num1 = '';
+        num2 = '';
+        evaluated = true;
     }
 
-    return;
 }
