@@ -2,7 +2,7 @@ const buttons = document.querySelectorAll('button');
 const numberBtns = document.querySelectorAll('.num');
 const operatorBtns = document.querySelectorAll('.operator');
 const equalBtn = document.getElementById('equal');
-const clearBtn = document.getElementById('cler')
+const clearBtn = document.getElementById('clear')
 const allClearBtn = document.getElementById('allClear')
 const deleteBtn = document.getElementById('delete')
 const numDisplay = document.getElementById('num-display');
@@ -32,21 +32,19 @@ equalBtn.addEventListener('click', () => {
     handleEqual()
 });
 
-/*
 clearBtn.addEventListener('click', () => {
-    clearNumDisplay();
+    changeDisplay(numDisplay, '0');
+    storage = '';
 });
 
 allClearBtn.addEventListener('click', () => {
-    clearNumDisplay();
-    clearCalcDisplay();
+    changeDisplay(numDisplay, '0');
+    changeDisplay(calcDisplay, '');
 });
 
 deleteBtn.addEventListener('click', () => {
-    delNumDisplay();
-})
-*/
-
+    changeDisplay(numDisplay, numDisplay.textContent.slice(0, -1));
+});
 
 
 //FUNCTIONS
@@ -108,12 +106,24 @@ function handleOperator(element) {
 function handleEqual() {
     if (num1 && !newNumber) {
         num2 = +storage
-        changeDisplay(calcDisplay, calcDisplay.innerHTML + num2 + ' = ');
+        changeDisplay(calcDisplay, calcDisplay.textContent + num2 + ' = ');
         storage = operate(operator, num1, num2);
         changeDisplay(numDisplay, storage)
         num1 = '';
         num2 = '';
         evaluated = true;
     }
+}
 
+function clear() {
+    changeDisplay(numDisplay, '0');
+    storage = '';
+}
+
+function allClear() {
+    changeDisplay(numDisplay, '0');
+    changeDisplay(calcDisplay, '');
+    storage = '';
+    num1 = '';
+    num2 = '';
 }
