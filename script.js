@@ -71,7 +71,7 @@ function multiply(num1, num2) {
 }
 
 function divide(num1, num2) {
-    return Math.round((num1/num2) * 100) / 100
+    return Math.round((num1/num2) * 1000) / 1000
 }
 
 function operate(operator, num1, num2) {
@@ -124,17 +124,20 @@ function handleEqual() {
 }
 
 function handleDecimal() {
-    if (storage.includes('.')){
-        return;
-    }
-    
+    console.log(storage);
     if (newNumber || evaluated) {
-        storage = '';
+        storage = '0';
         newNumber = false;
         evaluated = false;
     }
 
-    storage += element.value;
+    if (storage.includes('.') && !newNumber) {
+        console.log('includes')
+        return;
+    }
+    
+
+    storage += decimalBtn.value;
     changeDisplay(numDisplay, storage);
 }   
 
