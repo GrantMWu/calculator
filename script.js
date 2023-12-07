@@ -1,5 +1,6 @@
 const buttons = document.querySelectorAll('button'); 
 const numberBtns = document.querySelectorAll('.num');
+const decimalBtn = document.getElementById('decimal');
 const operatorBtns = document.querySelectorAll('.operator');
 const equalBtn = document.getElementById('equal');
 const clearBtn = document.getElementById('clear')
@@ -21,11 +22,14 @@ numberBtns.forEach(button => {
     });
 });
 
-
 operatorBtns.forEach(button => {
     button.addEventListener('click', () => {
         handleOperator(button);
     });
+});
+
+decimalBtn.addEventListener('click', () => {
+    handleDecimal();
 });
 
 equalBtn.addEventListener('click', () => {
@@ -118,6 +122,21 @@ function handleEqual() {
         evaluated = true;
     }
 }
+
+function handleDecimal() {
+    if (storage.includes('.')){
+        return;
+    }
+    
+    if (newNumber || evaluated) {
+        storage = '';
+        newNumber = false;
+        evaluated = false;
+    }
+
+    storage += element.value;
+    changeDisplay(numDisplay, storage);
+}   
 
 function clear() {
     changeDisplay(numDisplay, '0');
