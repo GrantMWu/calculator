@@ -5,8 +5,8 @@ const equalBtn = document.getElementById('equal');
 const clearBtn = document.getElementById('clear')
 const allClearBtn = document.getElementById('allClear')
 const deleteBtn = document.getElementById('delete')
-const numDisplay = document.getElementById('num-display');
-const calcDisplay = document.getElementById('calc-display');
+const numDisplay = document.getElementById('num');
+const calcDisplay = document.getElementById('calc');
 
 let storage;
 let num1;
@@ -40,6 +40,10 @@ clearBtn.addEventListener('click', () => {
 allClearBtn.addEventListener('click', () => {
     changeDisplay(numDisplay, '0');
     changeDisplay(calcDisplay, '');
+    storage = '';
+    num1 = '';
+    num2 = '';
+    newNumber = true;
 });
 
 deleteBtn.addEventListener('click', () => {
@@ -51,19 +55,19 @@ deleteBtn.addEventListener('click', () => {
 
 //Math functions
 function add(num1, num2) {
-     return num1 + num2
+     return Math.round((num1 + num2) * 100) / 100
 }
 
 function subtract(num1, num2) {
-    return num1 - num2
+    return Math.round((num1 - num2) * 100) / 100
 }
 
 function multiply(num1, num2) {
-    return num1 * num2
+    return Math.round((num1 * num2) *100) / 100
 }
 
 function divide(num1, num2) {
-    return num1/num2
+    return Math.round((num1/num2) * 100) / 100
 }
 
 function operate(operator, num1, num2) {
